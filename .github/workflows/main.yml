@@ -19,5 +19,11 @@ jobs:
           git config --local user.name "Automated Commit"
           git add daily_commit.txt
           git commit -m "Daily commit" || echo "No changes to commit"
-      
-      
+
+      - name: Push commit to GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
+
+
